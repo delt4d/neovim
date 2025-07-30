@@ -20,7 +20,8 @@ vim.keymap.set('n', '<leader>fg', telescope.live_grep, {})
 -- treesitter
 local treesitter = require("nvim-treesitter.configs")
 treesitter.setup({
-  ensure_installed = {"lua", "javascript"},
+  ensure_installed = {"lua", "javascript", "c", "vim", "vimdoc", "query", "markdown", "markdown_inline", "bash", "c_sharp" },
   highlight = { enable=true },
   indent = { enable=true },
 })
+vim.keymap.set('n', '<C-n>', ':Neotree toggle filesystem reveal left<CR>')
