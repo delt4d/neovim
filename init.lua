@@ -16,3 +16,11 @@ vim.cmd.colorscheme "catppuccin"
 local telescope = require("telescope.builtin")
 vim.keymap.set('n', '<C-p>', telescope.find_files, {})
 vim.keymap.set('n', '<leader>fg', telescope.live_grep, {})
+
+-- treesitter
+local treesitter = require("nvim-treesitter.configs")
+treesitter.setup({
+  ensure_installed = {"lua", "javascript"},
+  highlight = { enable=true },
+  indent = { enable=true },
+})
