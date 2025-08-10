@@ -12,3 +12,7 @@ end)
 vim.keymap.set("n", "C-n", function() 
    vscode.call("explorer.openToSide")
 end)
+
+vim.keymap.set({ 'n', 'i' }, '<C-j>', function()
+   vim.fn.VSCodeNotify('workbench.action.terminal.toggleTerminal')
+end)
