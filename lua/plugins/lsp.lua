@@ -1,51 +1,84 @@
 return {
-   "VonHeikemen/lsp-zero.nvim",
-   branch = "v3.x",
-   dependencies = {
-      --- LSP Support
-      {'neovim/nvim-lspconfig'},
-      {'williamboman/mason.nvim'},
-      {'williamboman/mason-lspconfig.nvim'},
-      { "onsails/lspkind.nvim" }, -- VS Code-like pictograms
-   },
-   config = function()
-      local lsp_zero = require('lsp-zero')
+  "neovim/nvim-lspconfig",
+  dependencies = {
+    "williamboman/mason.nvim",
+    "williamboman/mason-lspconfig.nvim",
+    "hrsh7th/nvim-cmp",
+    "hrsh7th/cmp-nvim-lsp",
+    "L3MON4D3/LuaSnip",
+    "onsails/lspkind.nvim",
+  },
+  config = function()
+    local lspconfig = require("lspconfig")
+    local mason = require("mason")
+    local mason_lspconfig = require("mason-lspconfig")
+    local cmp = require("cmp")
+    local luasnip = require("luasnip")
+    local lspkind = require("lspkind")
 
-      lsp_zero.on_attach(function(client, bufnr)
-         -- Set up keymaps here
-         local opts = { buffer = bufnr, remap = false }
-         vim.keymap.set("n", "gd", vim.lsp.buf.definition, opts)
-         vim.keymap.set("n", "K", vim.lsp.buf.hover, opts)
-      end)
+    -- Setup mason
+    mason.setup()
+    mason_lspconfig.setup({
+      ensure_installed = { "lua_ls", "pyright", "tsserver" },
+    })
 
-      -- Configure nvim-cmp here or use lsp-zero’s preset
-      local cmp = require('cmp')
-      local cmp_action = require('lsp-zero').cmp_action()
+    -- Setup nvim-cmp
+    cmp.setup({
+      snippet = {
+        expand = function(args)
+          luasnip.lsp_expand(args.body)
+        end,
+      },
+      mapping = {
+        ["<CR>"] = cmp.mapping.confirm({ select = true }),
+        ["<Tab>"] = cmp.mapping(function(fallback)
+          if cmp.visible() then
+            cmp.select_next_item()
+          elseif luasnip.expand_or_jumpable() then
+            luasnip.expand_or_jump()
+          else
+            fallback()
+          end
+        end, { "i", "s" }),
+        ["<S-Tab>"] = cmp.mapping(function(fallback)
+          if cmp.visible() then
+            cmp.select_prev_item()
+          elseif luasnip.jumpable(-1) then
+            luasnip.jump(-1)
+          else
+            fallback()
+          end
+        end, { "i", "s" }),
+      },
+      sources = {
+        { name = "nvim_lsp" },
+        { name = "luasnip" },
+      },
+      formatting = {
+        format = lspkind.cmp_format({ mode = "symbol_text", maxwidth = 50 }),
+      },
+    })
 
-      require('lsp-zero').setup({
-         cmp = {
-            mapping = {
-               ['<CR>'] = cmp.mapping.confirm({ select = true }),
-               ['<Tab>'] = cmp_action.luasnip_supertab(),
-               ['<S-Tab>'] = cmp_action.luasnip_shift_supertab(),
-            }
-         }
-      })
+    -- Common on_attach function for LSP clients
+    local on_attach = function(client, bufnr)
+      local opts = { noremap = true, silent = true, buffer = bufnr }
+      -- Keymaps for LSP
+      vim.keymap.set("n", "gd", vim.lsp.buf.definition, opts)
+      vim.keymap.set("n", "K", vim.lsp.buf.hover, opts)
 
-      -- Autocomplete UI
-      local lspkind = require("lspkind")
-      cmp.setup({
-         formatting = {
-            format = lspkind.cmp_format({ mode = 'symbol_text', maxwidth = 50 })
-         }
-      })
+      -- In insert mode, Ctrl-k to show hover (temporary leave insert mode)
+      vim.keymap.set("i", "<C-k>", function()
+        vim.lsp.buf.hover()
+      end, { silent = true })
+    end
 
-      -- Configure mason and mason-lspconfig
-      require('mason-lspconfig').setup({
-         ensure_installed = { 'lua_ls', 'pyright', 'ts_ls' }, 
-         handlers = {
-            lsp_zero.default_setup,
-         },
-      })
-   end
+   require('mason-lspconfig').setup({
+      on_attach,
+      ensure_installed = { 'lua_ls', 'pyright', 'ts_ls' }, 
+      --handlers = {
+      --   lspconfig.default_setup,
+      --},
+   })
+
+  end,
 }
