@@ -19,10 +19,10 @@ local toggle_terminal = function()
 end
 
 -- Keymap to toggle terminal
--- vim.keymap.set({ 'n', 'i' }, '<C-j>', '<ESC>:terminal<CR>i', { noremap = true, silent = true })
 vim.keymap.set({ 'n', 'i' }, '<C-j>', function()
     toggle_terminal()
 end, { noremap = true, silent = true })
+-- vim.keymap.set({ 'n', 'i' }, '<C-j>', '<ESC>:terminal<CR>i', { noremap = true, silent = true })
 
 -- Keymap to close terminal
 vim.keymap.set('t', '<C-q>', [[<C-\><C-n>:hide<CR>]], { noremap = true, silent = true })
@@ -32,3 +32,7 @@ vim.keymap.set({ "n", "v", "o" }, "<Home>", "^", { noremap = true, silent = true
 
 -- Go to last non-whitespace character in the line
 vim.keymap.set({ "n", "v", "o" }, "<End>", "g_", { noremap = true, silent = true })
+
+-- Create blank line above and below
+vim.keymap.set('n', '<Leader>o', 'o<Esc>', { noremap = true })
+vim.keymap.set('n', '<Leader>O', 'O<Esc>', { noremap = true })
