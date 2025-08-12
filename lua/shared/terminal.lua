@@ -35,3 +35,36 @@ function Leave_terminal_mode()
   -- Send the escape sequence to go from Terminal mode to Normal mode
   api.nvim_feedkeys(api.nvim_replace_termcodes("<C-\\><C-n>", true, false, true), "n", true)
 end
+
+function Toggle_terminal()
+    local buffers = Get_buffs()
+
+    if Is_terminal_buf() then -- check if current buffer is a terminal
+        if vim.fn.mode() == "t" then
+            Leave_terminal_mode()
+            vim.cmd("silent! Neotree")
+            return
+        end
+
+        vim.cmd("silent! Neotree close")
+        vim.api.nvim_command("startinsert")
+        return
+    end
+
+    -- If current buffer is neotree - hide it
+    if vim.bo[Get_current_buf()].filetype == 'neo-tree' then
+        vim.cmd('hide')
+    end
+
+    -- Try to find and reopen another terminal
+    for _, buffer in ipairs(buffers) do
+        if Is_terminal_buf(buffer) then
+            Set_current_buffer(buffer)
+            vim.api.nvim_command("startinsert")
+            return;
+        end
+    end
+
+    Create_terminal()
+    vim.api.nvim_command("startinsert")
+end
