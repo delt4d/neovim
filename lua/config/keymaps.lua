@@ -2,9 +2,10 @@ require("shared.buffers")
 require("shared.terminal")
 
 -- Use <C-j> for normal, insert, and terminal modes to toggle terminal open/close
-vim.keymap.set({ 'n', 'i', 't' }, '<C-j>', function()
-    Toggle_terminal()
-end, { noremap = true, silent = true })
+vim.keymap.set({ 'n', 'i', 't' }, '<C-j>', Toggle_terminal, { noremap = true, silent = true })
+vim.keymap.set({ 'n', 'i', 't' }, '<M-j>', Create_terminal, { noremap = true, silent = true })
+vim.keymap.set('t', '<C-n>', Next_terminal, { noremap = true, silent = true })
+vim.keymap.set('t', '<C-p>', Prev_terminal, { noremap = true, silent = true })
 
 -- Go to first non-whitespace character in the line
 vim.keymap.set({ "n", "v", "o" }, "<Home>", "^", { noremap = true, silent = true })
