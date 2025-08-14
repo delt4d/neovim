@@ -18,4 +18,7 @@ vim.keymap.set('n', '<Leader>o', 'o<Esc>', { noremap = true, silent = true })
 vim.keymap.set('n', '<Leader>O', 'O<Esc>', { noremap = true, silent = true })
 
 -- Keymap to save file
-vim.keymap.set({ 'n', 'i' }, 'C-s', '<ESC>:w<CR>', { noremap = true, silent = true })
+vim.keymap.set({ 'n', 'i' }, '<C-s>', '<ESC>:w<CR>', { noremap = true, silent = true })
+
+-- Keymap to select everything
+vim.keymap.set({ 'n', 'i' }, '<C-a>', '<ESC>ggVG', { noremap = true, silent = true })
