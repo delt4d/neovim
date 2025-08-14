@@ -8,6 +8,10 @@ return {
   },
   lazy = false,                    -- neo-tree will lazily load itself
   config = function()
+    require("neo-tree").setup({
+      open_files_do_not_replace_types = { "Trouble", "qf", "edgy" },
+    })
+
     -- Toggle the tree
     vim.keymap.set('n', '<C-n>', ':Neotree toggle filesystem reveal left<CR>')
 
