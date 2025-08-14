@@ -1,5 +1,9 @@
--- Treat .razor files as csharp code
 vim.api.nvim_create_autocmd({"BufRead", "BufNewFile"}, {
-    pattern = "*.razor",
-    command = "set filetype=cs"
+     pattern = "*.cshtml",
+     command = "set filetype=cs.html.cshtml.razor"
+})
+
+vim.api.nvim_create_autocmd({"BufRead", "BufNewFile"}, {
+     pattern = "*.razor",
+     command = "set filetype=cs.html.cshtml.razor"
 })

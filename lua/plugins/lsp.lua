@@ -6,10 +6,9 @@ return {
     "hrsh7th/nvim-cmp",
     "hrsh7th/cmp-nvim-lsp",
     "L3MON4D3/LuaSnip",
-    "onsails/lspkind.nvim",
+    "onsails/lspkind.nvim"
   },
   config = function()
-    local lspconfig = require("lspconfig")
     local mason = require("mason")
     local mason_lspconfig = require("mason-lspconfig")
     local cmp = require("cmp")
@@ -75,9 +74,6 @@ return {
    require('mason-lspconfig').setup({
       on_attach,
       ensure_installed = { 'lua_ls', 'pyright', 'ts_ls' }, 
-      --handlers = {
-      --   lspconfig.default_setup,
-      --},
    })
 
   end,
