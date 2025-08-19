@@ -9,6 +9,7 @@ return {
    config = function()
     local cmp = require("cmp")
     local luasnip = require("luasnip")
+    local lspkind = require("lspkind")
 
     cmp.setup({
       snippet = {
@@ -47,6 +48,9 @@ return {
         { name = "buffer" },
         { name = "path" },
       }),
+      formatting = {
+        format = lspkind.cmp_format({ mode = "symbol_text", maxwidth = 50 }),
+      },
     })
   end,
 }
