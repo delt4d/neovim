@@ -27,7 +27,7 @@ return {
       vim.keymap.set("n", "K", vim.lsp.buf.hover, opts)
 
       -- In insert mode, Ctrl-k to show hover (leave insert mode temporarily)
-      vim.keymap.set("i", "<C-k>", function()
+      vim.keymap.set("i", "<C-Space>", function()
         vim.lsp.buf.hover()
       end, { silent = true })
     end
