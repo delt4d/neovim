@@ -10,6 +10,8 @@ return {
     { "saadparwaiz1/cmp_luasnip" },   -- Snippet source for nvim-cmp
   },
   config = function()
+    require("luasnip.loaders.from_vscode").lazy_load()
+
     local cmp = require("cmp")
     local luasnip = require("luasnip")
     local lspkind = require("lspkind")
@@ -20,11 +22,31 @@ return {
           luasnip.lsp_expand(args.body)
         end,
       },
+      formatting = {
+        fields = { "menu", "abbr", "kind" },
+        format = lspkind.cmp_format({ 
+          mode = "symbol_text",
+          maxwidth = 50,
+          before = function (entry, item)
+            local menu_icon = {
+              nvim_lsp = "λ",
+              luasnip = "⋗",
+              buffer = "Ω",
+              path = "🖫",
+            }
+					  item.menu = menu_icon[entry.source.name]
+            return item
+          end
+        }),
+      },
       mapping = cmp.mapping.preset.insert({
         ["<C-b>"] = cmp.mapping.scroll_docs(-4),
         ["<C-f>"] = cmp.mapping.scroll_docs(4),
-        ["<C-Space>"] = cmp.mapping.complete(),
+        
         ["<C-e>"] = cmp.mapping.abort(),
+        ["<C-y>"] = cmp.mapping.confirm({ select = true }),
+
+        ["<C-Space>"] = cmp.mapping.complete(),
         ["<CR>"] = cmp.mapping(function(fallback)
           if cmp.visible() then
             if luasnip.expandable() then
@@ -59,13 +81,15 @@ return {
       }),
       sources = cmp.config.sources({
         { name = "nvim_lsp" },
-        { name = "luasnip" },
         { name = "buffer" },
         { name = "path" },
-      }),
-      formatting = {
-        format = lspkind.cmp_format({ mode = "symbol_text", maxwidth = 50 }),
-      },
+        { name = "luasnip" },
+      }, {
+				{ name = "buffer" },
+			}),
+      window = {
+				documentation = cmp.config.window.bordered(),
+			},
     })
   end,
 }
