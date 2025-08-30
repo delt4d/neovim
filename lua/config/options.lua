@@ -24,3 +24,6 @@ vim.opt.scrolloff = 8
 vim.opt.signcolumn = "yes"
 vim.opt.colorcolumn = "80"
 vim.opt.updatetime = 50
+
+vim.g.is_linux = vim.loop.os_uname().sysname == "Linux"
+vim.g.is_wayland = os.getenv("WAYLAND_DISPLAY") ~= nil
