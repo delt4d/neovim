@@ -1,5 +1,4 @@
 vim.cmd("set clipboard+=unnamedplus")
-vim.cmd("colorscheme onedark_dark")
 
 vim.opt.tabstop = 4
 vim.opt.softtabstop = 4
