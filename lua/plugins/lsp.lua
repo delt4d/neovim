@@ -34,5 +34,40 @@ return {
         },
       },
     })
+
+    -- Common on_attach function for LSP clients
+    local on_attach = function(client, bufnr)
+      local opts = { noremap = true, silent = true, buffer = bufnr }
+      -- Keymaps for LSP
+      vim.keymap.set("n", "gd", vim.lsp.buf.definition, opts)
+      vim.keymap.set("n", "K", vim.lsp.buf.hover, opts)
+      -- In insert mode, Ctrl-Space to show hover
+      vim.keymap.set("i", "<C-Space>", function()
+        vim.lsp.buf.hover()
+      end, { silent = true })
+    end
+
+    local servers = require("shared.globals").lsp_servers
+
+    for _, server in ipairs(servers) do
+      if server == "lua_ls" then
+        lspconfig.lua_ls.setup({
+          on_attach = on_attach,
+          capabilities = capabilities,
+          settings = {
+            Lua = {
+              diagnostics = {
+                globals = { 'vim' },
+              },
+            },
+          },
+        })
+      else
+        lspconfig[server].setup({
+          on_attach = on_attach,
+          capabilities = capabilities
+        })
+      end
+    end
   end,
 }
