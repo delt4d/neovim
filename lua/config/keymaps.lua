@@ -1,17 +1,19 @@
-require("shared.buffers")
-require("shared.terminal")
+local terminal = require("shared.terminal")
 
 -- Terminal keymaps
-vim.keymap.set({ 'n', 'i', 't' }, '<C-j>', Toggle_terminal,
+vim.keymap.set({ 'n', 'i', 't' }, '<C-j>', terminal.Toggle_terminal,
   { noremap = true, silent = true, desc = "Toggle terminal (normal/insert/terminal modes)" })
 
-vim.keymap.set({ 'n', 'i', 't' }, '<M-j>', Create_terminal,
+vim.keymap.set({ 'n', 'i', 't' }, '<M-j>', terminal.Create_terminal,
   { noremap = true, silent = true, desc = "Create new terminal" })
 
-vim.keymap.set('t', '<C-n>', Next_terminal,
+vim.keymap.set({ 'i', 't' }, '<C-q>', terminal.Quit_terminal,
+  { noremap = true, silent = true, desc = "Quit terminal without opening Neo-tree" })
+
+vim.keymap.set('t', '<C-n>', terminal.Next_terminal,
   { noremap = true, silent = true, desc = "Go to next terminal" })
 
-vim.keymap.set('t', '<C-p>', Prev_terminal,
+vim.keymap.set('t', '<C-p>', terminal.Prev_terminal,
   { noremap = true, silent = true, desc = "Go to previous terminal" })
 
 -- Navigation & editing
@@ -30,6 +32,6 @@ vim.keymap.set('n', '<Leader>O', 'O<Esc>',
 vim.keymap.set({ 'n', 'i' }, '<C-s>', '<ESC>:w<CR>',
   { noremap = true, silent = true, desc = "Save file" })
 
--- Optional: overrides increment command <C-a> to select all
+-- Optional: select all
 -- vim.keymap.set({ 'n', 'i' }, '<C-a>', '<ESC>ggVG',
 --   { noremap = true, silent = true, desc = "Select all text" })
