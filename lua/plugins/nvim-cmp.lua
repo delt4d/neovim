@@ -24,6 +24,9 @@ return {
     )
 
     cmp.setup({
+      completion = {
+        autocomplete = false, -- Disable automatic completion popup
+      },
       snippet = {
         expand = function(args)
           luasnip.lsp_expand(args.body)
