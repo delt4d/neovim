@@ -8,13 +8,20 @@ return {
     { "onsails/lspkind.nvim" },       -- VS Code-like pictograms
     { 'L3MON4D3/LuaSnip' },
     { "saadparwaiz1/cmp_luasnip" },   -- Snippet source for nvim-cmp
+    { 'windwp/nvim-autopairs' }
   },
   config = function()
     require("luasnip.loaders.from_vscode").lazy_load()
 
+    local cmp_autopairs = require('nvim-autopairs.completion.cmp')
     local cmp = require("cmp")
     local luasnip = require("luasnip")
     local lspkind = require("lspkind")
+
+    cmp.event:on(
+      'confirm_done',
+      cmp_autopairs.on_confirm_done()
+    )
 
     cmp.setup({
       snippet = {
