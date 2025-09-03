@@ -67,7 +67,7 @@ function M.Toggle_terminal()
   end
 
   if vim.bo[buffers.Get_current_buf()].filetype == "neo-tree" then
-    cmd("hide")
+    cmd("silent! hide")
   end
 
   local terms = M.Get_terminal_buffs()
@@ -90,7 +90,7 @@ function M.Quit_terminal()
   end
   if vim.bo[buffers.Get_current_buf()].buftype == "terminal" then
     -- Already in terminal buffer but normal mode
-    vim.cmd("hide")
+    vim.cmd("silent! hide")
   end
 end
 
