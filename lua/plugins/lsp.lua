@@ -12,29 +12,6 @@ return {
     local capabilities = require("cmp_nvim_lsp").default_capabilities()
     local lspconfig = require("lspconfig")
 
-    -- Set global defaults for all servers
-    lspconfig.util.default_config = vim.tbl_extend(
-      'force',
-      lspconfig.util.default_config,
-      {
-        capabilities = vim.tbl_deep_extend(
-          "force",
-          vim.lsp.protocol.make_client_capabilities(),
-          -- returns configured operations if setup() was already called
-          -- or default operations if not
-          require 'lsp-file-operations'.default_capabilities()
-        )
-      })
-
-    lspconfig.lua_ls.setup({
-      capabilities = capabilities,
-      settings = {
-        Lua = {
-          diagnostics = { globals = { "vim" } },
-        },
-      },
-    })
-
     -- Common on_attach function for LSP clients
     local on_attach = function(client, bufnr)
       local opts = { noremap = true, silent = true, buffer = bufnr }
@@ -48,6 +25,20 @@ return {
     end
 
     local servers = require("shared.globals").lsp_servers
+
+    -- Set global defaults for all servers
+    lspconfig.util.default_config = vim.tbl_extend(
+      'force',
+      lspconfig.util.default_config,
+      {
+        capabilities = vim.tbl_deep_extend(
+          "force",
+          vim.lsp.protocol.make_client_capabilities(),
+          -- returns configured operations if setup() was already called
+          -- or default operations if not
+          require 'lsp-file-operations'.default_capabilities()
+        )
+      })
 
     for _, server in ipairs(servers) do
       if server == "lua_ls" then

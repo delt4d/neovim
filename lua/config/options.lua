@@ -7,7 +7,6 @@ vim.opt.expandtab = true
 vim.opt.smartindent = true
 
 vim.opt.relativenumber = true
-vim.opt.signcolumn = "number"
 vim.opt.wrap = false
 
 vim.opt.hlsearch = false
@@ -17,12 +16,16 @@ vim.opt.swapfile = false
 vim.opt.backup = false
 vim.opt.undofile = true
 
-vim.g.mapleader = " "
-
 vim.opt.scrolloff = 8
 vim.opt.signcolumn = "yes"
 vim.opt.colorcolumn = "80"
 vim.opt.updatetime = 50
+
+-- Make sure to setup `mapleader` and `maplocalleader` before
+-- loading lazy.nvim so that mappings are correct.
+-- This is also a good place to setup other settings (vim.opt)
+vim.g.mapleader = " "
+vim.g.maplocalleader = "\\"
 
 vim.g.is_linux = vim.loop.os_uname().sysname == "Linux"
 vim.g.is_wayland = os.getenv("WAYLAND_DISPLAY") ~= nil

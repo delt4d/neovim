@@ -90,7 +90,7 @@ function M.Quit_terminal()
   end
   if vim.bo[buffers.Get_current_buf()].buftype == "terminal" then
     -- Already in terminal buffer but normal mode
-    vim.cmd("silent! hide")
+    cmd("silent! hide")
   end
 end
 
