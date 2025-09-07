@@ -58,7 +58,7 @@ function M.Toggle_terminal()
   if Is_terminal_buf() then
     if fn.mode() == "t" then
       M.Leave_terminal_mode()
-      cmd("silent! Neotree")
+      cmd("silent! Neotree current")
       return
     end
     cmd("silent! Neotree close")
