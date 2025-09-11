@@ -16,24 +16,23 @@ return {
       -- Toggle the tree
       vim.keymap.set('n', '<C-n>', ':Neotree toggle filesystem reveal float<CR>')
 
-      -- Toggle filesystem specifically
-      vim.keymap.set('n', '<leader>e', ':Neotree toggle filesystem reveal float<CR>', { noremap = true, silent = true })
-
       -- Toggle buffers view
-      vim.keymap.set('n', '<leader>b', ':Neotree toggle buffers reveal float<CR>', { noremap = true, silent = true })
+      vim.keymap.set('n', '<leader>gb', ':Neotree toggle buffers reveal float<CR>', { noremap = true, silent = true })
 
       -- Toggle git status view
-      vim.keymap.set('n', '<leader>g', ':Neotree toggle git_status reveal float<CR>', { noremap = true, silent = true })
-
-      -- Focus Neo-tree window
-      vim.keymap.set('n', '<leader>nf', ':Neotree focus<CR>', { noremap = true, silent = true })
-
-      -- Reveal current file in tree
-      vim.keymap.set('n', '<leader>nr', ':Neotree reveal<CR>', { noremap = true, silent = true })
+      vim.keymap.set('n', '<leader>gs', ':Neotree toggle git_status reveal float<CR>', { noremap = true, silent = true })
 
       -- Refresh
-      vim.keymap.set('n', '<leader>R', ':Neotree refresh<CR>', { noremap = true, silent = true })
+      -- vim.keymap.set('n', '<leader>R', ':Neotree refresh<CR>', { noremap = true, silent = true })
 
+      -- Focus Neo-tree window
+      -- vim.keymap.set('n', '<leader>nf', ':Neotree focus<CR>', { noremap = true, silent = true })
+      
+      -- Toggle filesystem specifically
+      -- vim.keymap.set('n', '<leader>e', ':Neotree toggle filesystem reveal float<CR>', { noremap = true, silent = true })
+
+      -- Reveal current file in tree
+      -- vim.keymap.set('n', '<leader>nr', ':Neotree reveal<CR>', { noremap = true, silent = true })
     end
   },
   {

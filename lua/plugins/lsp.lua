@@ -15,13 +15,23 @@ return {
     -- Common on_attach function for LSP clients
     local on_attach = function(client, bufnr)
       local opts = { noremap = true, silent = true, buffer = bufnr }
-      -- Keymaps for LSP
-      vim.keymap.set("n", "gd", vim.lsp.buf.definition, opts)
-      vim.keymap.set("n", "K", vim.lsp.buf.hover, opts)
-      -- In insert mode, Ctrl-Space to show hover
-      vim.keymap.set("i", "<C-Space>", function()
-        vim.lsp.buf.hover()
-      end, { silent = true })
+
+      -- Definitions
+      vim.keymap.set("n", "<leader>h", vim.lsp.buf.hover, opts)             -- Show hover info
+      vim.keymap.set("n", "<leader>gd", vim.lsp.buf.definition, opts)       -- Go to definition
+
+      -- Diagnostics
+      vim.keymap.set("n", "<leader>d", vim.diagnostic.open_float, opts)     -- Show line diagnostics
+      vim.keymap.set("n", "<leader>q", vim.diagnostic.setqflist, opts)      -- Show all diagnostics
+      vim.keymap.set("n", "]d", vim.diagnostic.goto_next, opts)             -- Next diagnostic
+      vim.keymap.set("n", "[d", vim.diagnostic.goto_prev, opts)             -- Previous diagnostic
+
+      -- Additional LSP actions
+      vim.keymap.set("n", "gr", vim.lsp.buf.references, opts)               -- Show references
+      vim.keymap.set("n", "gi", vim.lsp.buf.implementation, opts)           -- Go to implementation
+      vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, opts)           -- Rename symbol
+      vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, opts)      -- Code actions
+      vim.keymap.set("n", "<leader>f", vim.lsp.buf.format, opts)            -- Format document
     end
 
     local servers = require("shared.globals").lsp_servers

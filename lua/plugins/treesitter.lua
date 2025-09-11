@@ -4,25 +4,26 @@ return {
   config = function()
     require("nvim-treesitter.configs").setup({
       ensure_installed = {
-        "lua", 
-        "javascript", 
-        "c", 
+        "lua",
+        "javascript",
+        "c",
         "c_sharp",
-        "vim", 
-        "vimdoc", 
-        "query", 
-        "markdown", 
-        "markdown_inline", 
-        "bash", 
+        "vim",
+        "vimdoc",
+        "query",
+        "markdown",
+        "markdown_inline",
+        "bash",
         "dockerfile",
         "json",
         "sql",
-        "yaml"
+        "yaml",
+        "python",
+        "java"
       },
       auto_install = true,
-      highlight = { enable=true },
-      indent = { enable=true },
+      highlight = { enable = true },
+      indent = { enable = true },
     })
   end
 }
-
