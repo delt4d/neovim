@@ -55,13 +55,9 @@ A modern, feature-rich Neovim configuration with LSP support, file management, a
 ### File Management (Neo-tree)
 | Key | Mode | Action |
 |-----|------|--------|
-| `<C-n>` | Normal | Toggle Neo-tree filesystem |
-| `<Leader>e` | Normal | Toggle filesystem view |
-| `<Leader>b` | Normal | Toggle buffers view |
-| `<Leader>g` | Normal | Toggle git status view |
-| `<Leader>nf` | Normal | Focus Neo-tree window |
-| `<Leader>nr` | Normal | Reveal current file in tree |
-| `<Leader>R` | Normal | Refresh Neo-tree |
+| `<C-n>` | Normal | Toggle Neo-tree filesystem (floating) |
+| `<Leader>gb` | Normal | Toggle buffers view (floating) |
+| `<Leader>gs` | Normal | Toggle git status view (floating) |
 
 ### Terminal Management
 | Key | Mode | Action |
@@ -78,17 +74,25 @@ A modern, feature-rich Neovim configuration with LSP support, file management, a
 | `<C-p>` | Normal | Find files |
 | `<Leader>fg` | Normal | Live grep |
 
-### LSP Features
+### LSP Features (Auto-configured when LSP attaches)
 | Key | Mode | Action |
 |-----|------|--------|
-| `gd` | Normal | Go to definition |
-| `K` | Normal | Show hover information |
-| `<C-Space>` | Insert | Show hover information |
+| `<Leader>h` | Normal | Show hover information |
+| `<Leader>gd` | Normal | Go to definition |
+| `<Leader>d` | Normal | Show line diagnostics |
+| `<Leader>q` | Normal | Show all diagnostics in quickfix |
+| `]d` | Normal | Next diagnostic |
+| `[d` | Normal | Previous diagnostic |
+| `gr` | Normal | Show references |
+| `gi` | Normal | Go to implementation |
+| `<Leader>rn` | Normal | Rename symbol |
+| `<Leader>ca` | Normal | Code actions |
+| `<Leader>f` | Normal | Format document |
 
 ### Git (Fugitive)
 | Key | Mode | Action |
 |-----|------|--------|
-| `<Leader>gs` | Normal | Git status |
+| `<Leader>gs` | Normal | Git status (from fugitive plugin) |
 
 ### Completion (nvim-cmp)
 | Key | Mode | Action |
@@ -118,10 +122,7 @@ A modern, feature-rich Neovim configuration with LSP support, file management, a
 
 The configuration includes LSP support for:
 - **Lua** - lua_ls (with Neovim-specific settings)
-- **Python** - pyright
 - **JavaScript/TypeScript** - ts_ls
-- **CSS** - cssls
-- **HTML** - html
 - **JSON** - jsonls
 
 Additional syntax highlighting for:
@@ -131,6 +132,8 @@ Additional syntax highlighting for:
 - SQL
 - YAML
 - Markdown
+- Python
+- Java
 
 ## Plugin Overview
 
@@ -163,7 +166,7 @@ Additional syntax highlighting for:
 ```
 lua/
 ├── config/           # Core configuration
-│   ├── autocmds.lua  # Auto commands
+│   ├── autocmds.lua  # Auto commands & LSP keymaps
 │   ├── keymaps.lua   # Key mappings
 │   ├── lazy.lua      # Plugin manager setup
 │   ├── linux.lua     # Linux/Wayland specific settings
@@ -193,7 +196,7 @@ The configuration automatically detects and adapts to:
 Edit `lua/shared/globals.lua` and add servers to the `lsp_servers` table:
 
 ```lua
-M.lsp_servers = { "lua_ls", "pyright", "cssls", "html", "jsonls", "ts_ls", "your_server" }
+M.lsp_servers = { "lua_ls", "jsonls", "ts_ls", "your_server" }
 ```
 
 ### Custom Keybindings
@@ -202,6 +205,9 @@ Add to `lua/config/keymaps.lua`:
 ```lua
 vim.keymap.set('n', '<your_key>', '<your_command>', { desc = "Description" })
 ```
+
+### LSP Keybindings
+LSP keybindings are automatically configured when an LSP server attaches to a buffer. These are defined in `lua/config/autocmds.lua` in the `LspAttach` autocommand.
 
 ### Theme Configuration
 The theme system persists your preferences. Set once with:
