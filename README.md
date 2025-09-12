@@ -116,7 +116,7 @@ A modern, feature-rich Neovim configuration with LSP support, file management, a
 ### Session Management
 - `:Q` - Quit all windows (safe, stops if unsaved)
 - `:QQ` - Force quit all windows (discard changes)
-- `:WQ` / `:Wq` - Save all buffers and quit
+- `:WQ` - Save all buffers and quit
 
 ## Supported Languages
 
