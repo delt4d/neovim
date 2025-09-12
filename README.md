@@ -7,7 +7,7 @@ A modern, feature-rich Neovim configuration with LSP support, file management, a
 - **LSP Integration**: Full Language Server Protocol support with Mason for automatic server management
 - **File Management**: Neo-tree file explorer with floating windows
 - **Terminal Integration**: Advanced terminal management with multiple terminal support
-- **Theme System**: Dynamic theme switching between light and dark modes with persistence
+- **Advanced Theme System**: Interactive theme picker with live preview, dual-theme configuration, and automatic persistence
 - **VSCode Compatibility**: Seamless integration when running inside VSCode
 - **Auto-completion**: Intelligent completion with nvim-cmp and snippet support
 - **Git Integration**: Built-in Git support with vim-fugitive
@@ -38,7 +38,7 @@ A modern, feature-rich Neovim configuration with LSP support, file management, a
 3. **First Launch**:
    - Lazy.nvim will automatically install all plugins
    - Mason will prompt to install LSP servers
-   - Set your preferred themes with `:SetDarkTheme <theme>` and `:SetLightTheme <theme>`
+   - Configure your themes with `:SetDarkTheme` and `:SetLightTheme` (see Theme System below)
 
 ## Key Bindings
 
@@ -107,16 +107,91 @@ A modern, feature-rich Neovim configuration with LSP support, file management, a
 ## Commands
 
 ### Theme Management
+
+The configuration includes a sophisticated theme system that supports separate dark and light themes with persistence and live preview.
+
+#### Basic Theme Commands
 - `:Dark` - Switch to configured dark theme
-- `:Light` - Switch to configured light theme
+- `:Light` - Switch to configured light theme  
 - `:ToggleTheme` - Toggle between light and dark themes
-- `:SetDarkTheme <theme>` - Configure dark theme
-- `:SetLightTheme <theme>` - Configure light theme
+
+#### Theme Configuration Commands
+- `:SetDarkTheme [theme_name]` - Configure dark theme (opens picker if no theme specified)
+- `:SetLightTheme [theme_name]` - Configure light theme (opens picker if no theme specified)
+
+#### Interactive Theme Picker
+
+When you run `:SetDarkTheme` or `:SetLightTheme` without arguments, an interactive Telescope-based theme picker opens with the following features:
+
+**Picker Controls:**
+- **Live Preview**: Themes are applied in real-time as you navigate
+- **`<C-j>`/`<C-k>`**: Navigate up/down with live preview
+- **`<Enter>`**: Select and apply the highlighted theme
+- **`<Esc>`**: Cancel and restore previous theme
+- **Type to filter**: Start typing to filter theme names
+
+**Example Usage:**
+```vim
+" Open interactive dark theme picker
+:SetDarkTheme
+
+" Set specific theme directly  
+:SetDarkTheme catppuccin-mocha
+
+" Open interactive light theme picker
+:SetLightTheme
+
+" Set specific theme directly
+:SetLightTheme catppuccin-latte
+
+" Toggle between your configured themes
+:ToggleTheme
+```
 
 ### Session Management
 - `:Q` - Quit all windows (safe, stops if unsaved)
 - `:QQ` - Force quit all windows (discard changes)
 - `:WQ` - Save all buffers and quit
+
+## Theme System Deep Dive
+
+### How It Works
+1. **Dual Configuration**: Separate dark and light theme preferences
+2. **Persistence**: Theme choices are saved to `~/.local/share/nvim/theme_config.json`
+3. **Auto-restore**: Last used theme mode (dark/light) is restored on startup
+4. **Live Preview**: Interactive picker shows themes in real-time
+
+### Available Themes
+The configuration includes several high-quality themes:
+- **Catppuccin** - Modern, warm colorscheme with multiple variants
+- **OneDarkPro** - Professional One Dark theme variations  
+- **Gruvbox** - Retro groove colorscheme
+- **Tokyo Night** - Clean, modern theme inspired by VS Code
+
+### Theme Persistence Structure
+```json
+{
+  "dark": "catppuccin-mocha",
+  "light": "catppuccin-latte", 
+  "last": "dark"
+}
+```
+
+### Advanced Theme Usage
+
+**Set up a complete theme workflow:**
+```vim
+" Configure your preferred themes
+:SetDarkTheme catppuccin-mocha
+:SetLightTheme catppuccin-latte
+
+" Now you can quickly switch
+:Dark      " Switch to catppuccin-mocha  
+:Light     " Switch to catppuccin-latte
+:ToggleTheme " Toggle between them
+```
+
+**Pro tip**: The theme picker remembers your last selection and will restore it when you restart Neovim.
 
 ## Supported Languages
 
@@ -142,7 +217,7 @@ Additional syntax highlighting for:
 - **mason.nvim** - LSP server installer
 - **nvim-lspconfig** - LSP configuration
 - **nvim-cmp** - Completion engine
-- **telescope.nvim** - Fuzzy finder
+- **telescope.nvim** - Fuzzy finder (also powers theme picker)
 - **neo-tree.nvim** - File explorer
 
 ### Enhancement Plugins
@@ -154,8 +229,10 @@ Additional syntax highlighting for:
 - **vim-fugitive** - Git integration
 
 ### Themes
-- **catppuccin** - Modern colorscheme
+- **catppuccin** - Modern colorscheme with multiple variants
 - **onedarkpro.nvim** - One Dark theme variations
+- **gruvbox** - Retro groove colorscheme  
+- **tokyonight.nvim** - VS Code inspired theme
 
 ### VSCode Integration
 - **vscode-multi-cursor.nvim** - Multi-cursor support in VSCode
@@ -179,7 +256,7 @@ lua/
     ├── globals.lua   # Global configuration
     ├── jobs.lua      # Job/process utilities
     ├── terminal.lua  # Terminal management
-    └── theme.lua     # Theme switching system
+    └── theme.lua     # Advanced theme switching system
 ```
 
 ## Environment Detection
@@ -209,14 +286,18 @@ vim.keymap.set('n', '<your_key>', '<your_command>', { desc = "Description" })
 ### LSP Keybindings
 LSP keybindings are automatically configured when an LSP server attaches to a buffer. These are defined in `lua/config/autocmds.lua` in the `LspAttach` autocommand.
 
-### Theme Configuration
-The theme system persists your preferences. Set once with:
-```vim
-:SetDarkTheme catppuccin
-:SetLightTheme catppuccin-latte
+### Adding Custom Themes
+To add more themes, create entries in `lua/plugins/colorschemes.lua`:
+
+```lua
+{
+    "author/theme-name",
+    lazy = false,
+    priority = 1000
+}
 ```
 
-Then use `:ToggleTheme` or `:Dark`/`:Light` to switch.
+Then they'll be available in the theme picker automatically.
 
 ## Terminal Integration
 
@@ -241,7 +322,13 @@ The advanced terminal system provides:
 ### Theme Issues
 1. List available themes: `:colorscheme <Tab>`
 2. Check theme config: `cat ~/.local/share/nvim/theme_config.json`
-3. Reset themes: Delete the config file and reconfigure
+3. Reset themes: Delete the config file and reconfigure with `:SetDarkTheme` and `:SetLightTheme`
+4. Test theme picker: Run `:SetDarkTheme` without arguments
+
+### Common Theme Solutions
+- **Theme not applying**: Make sure the theme plugin is installed (check `:Lazy`)
+- **Picker not working**: Ensure Telescope is loaded (dependency issue)
+- **Settings not persisting**: Check write permissions for `~/.local/share/nvim/`
 
 ## License
 
