@@ -25,7 +25,7 @@ return {
 
     cmp.setup({
       completion = {
-        autocomplete = false, -- Disable automatic completion popup
+        -- autocomplete = false, -- Disable automatic completion popup
       },
       snippet = {
         expand = function(args)
