@@ -16,6 +16,12 @@ vim.keymap.set('t', '<C-n>', terminal.Next_terminal,
 vim.keymap.set('t', '<C-p>', terminal.Prev_terminal,
   { noremap = true, silent = true, desc = "Go to previous terminal" })
 
+vim.keymap.set({ 'n', 't' }, '<C-o>', terminal.Term_jump_back,
+  { noremap = true, silent = true, desc = "Go to previous buffer" })
+
+vim.keymap.set({ 'n', 't' }, '<C-i>', terminal.Term_jump_forward,
+  { noremap = true, silent = true, desc = "Go to next buffer" })
+
 -- Navigation & editing
 vim.keymap.set({ "n", "v", "o" }, "<Home>", "^",
   { noremap = true, silent = true, desc = "Jump to first non-whitespace character" })
@@ -32,6 +38,12 @@ vim.keymap.set('n', '<Leader>O', 'O<Esc>',
 vim.keymap.set({ 'n', 'i' }, '<C-s>', '<ESC>:w<CR>',
   { noremap = true, silent = true, desc = "Save file" })
 
--- Optional: select all
+vim.keymap.set("n", "<Tab>", ":bnext<CR>",
+  { noremap = true, silent = true, desc = "Go to next opened buffer" })
+
+vim.keymap.set("n", "<S-Tab>", ":bprevious<CR>",
+  { noremap = true, silent = true, desc = "Go to previous opened buffer" })
+
+-- Optional: select all (overrides increment or decrement keymap)
 -- vim.keymap.set({ 'n', 'i' }, '<C-a>', '<ESC>ggVG',
 --   { noremap = true, silent = true, desc = "Select all text" })

@@ -102,4 +102,18 @@ function M.Prev_terminal()
   terminal_index, _ = Goto_terminal(terminal_index - 1)
 end
 
+function M.Term_jump_back()
+  if fn.mode() == 't' then
+    M.Leave_terminal_mode()
+  end
+  api.nvim_feedkeys(api.nvim_replace_termcodes("<C-o>", true, false, true), "n", true)
+end
+
+function M.Term_jump_forward()
+  if fn.mode() == 't' then
+    M.Leave_terminal_mode()
+  end
+  api.nvim_feedkeys(api.nvim_replace_termcodes("<C-i>", true, false, true), "n", true)
+end
+
 return M
