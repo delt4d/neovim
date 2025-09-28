@@ -77,7 +77,7 @@ A modern, feature-rich Neovim configuration with LSP support, file management, a
 |-----|------|--------|
 | `<C-j>` | Normal/Insert/Terminal | Toggle terminal |
 | `<M-j>` | Normal/Insert/Terminal | Create new terminal |
-| `<C-q>` | Insert/Terminal | Quit terminal |
+| `<Esc>` | Terminal | Quit terminal |
 | `<C-n>` | Terminal | Next terminal |
 | `<C-p>` | Terminal | Previous terminal |
 

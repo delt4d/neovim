@@ -7,7 +7,7 @@ vim.keymap.set({ 'n', 'i', 't' }, '<C-j>', terminal.Toggle_terminal,
 vim.keymap.set({ 'n', 'i', 't' }, '<M-j>', terminal.Create_terminal,
   { noremap = true, silent = true, desc = "Create new terminal" })
 
-vim.keymap.set({ 'i', 't' }, '<C-q>', terminal.Quit_terminal,
+vim.keymap.set('t', '<Esc>', terminal.Quit_terminal,
   { noremap = true, silent = true, desc = "Quit terminal without opening Neo-tree" })
 
 vim.keymap.set('t', '<C-n>', terminal.Next_terminal,
