@@ -38,10 +38,10 @@ vim.keymap.set('n', '<Leader>O', 'O<Esc>',
 vim.keymap.set({ 'n', 'i' }, '<C-s>', '<ESC>:w<CR>',
   { noremap = true, silent = true, desc = "Save file" })
 
-vim.keymap.set("n", "<Tab>", ":bnext<CR>",
+vim.keymap.set("n", "<leader>n", ":bnext<CR>",
   { noremap = true, silent = true, desc = "Go to next opened buffer" })
 
-vim.keymap.set("n", "<S-Tab>", ":bprevious<CR>",
+vim.keymap.set("n", "<leader>p", ":bprevious<CR>",
   { noremap = true, silent = true, desc = "Go to previous opened buffer" })
 
 -- Optional: select all (overrides increment or decrement keymap)

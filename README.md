@@ -111,8 +111,8 @@ A modern, feature-rich Neovim configuration with LSP support, file management, a
 | Key | Mode | Action |
 |-----|------|--------|
 | `<C-Space>` | Insert | Trigger completion |
-| `<Tab>` | Insert | Next completion item / expand snippet |
-| `<S-Tab>` | Insert | Previous completion item |
+| `<Leader>n` | Insert | Next completion item / expand snippet |
+| `<Leader>p` | Insert | Previous completion item |
 | `<C-y>` | Insert | Confirm selection |
 | `<C-e>` | Insert | Abort completion |
 | `<CR>` | Insert | Confirm completion |
