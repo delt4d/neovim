@@ -7,6 +7,10 @@ return {
             win_opts = {
                 width = 25,
                 height = 1
+            },
+            keys = {
+                ["<S-TAB>"] = "⇤",
+                ["<BS>"] = "⌫",
             }
         })
 
