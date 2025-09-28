@@ -52,6 +52,19 @@ A modern, feature-rich Neovim configuration with LSP support, file management, a
 | `<Leader>o` | Normal | Insert blank line below (stay in normal) |
 | `<Leader>O` | Normal | Insert blank line above (stay in normal) |
 
+
+### Document Scrolling
+| Key | Mode | Action |
+|-----|------|--------|
+| `<C-d>` | Normal | Scroll down half a page |
+| `<C-u>` | Normal | Scroll up half a page |
+| `<C-f>` | Normal | Scroll down one full page (forward) |
+| `<C-b>` | Normal | Scroll up one full page (backward) |
+| `<C-e>` | Normal | Scroll down one line (cursor stays in place) |
+| `<C-y>` | Normal | Scroll up one line (cursor stays in place) |
+| `}` | Normal | Jump to next paragraph/block |
+| `{` | Normal | Jump to previous paragraph/block |
+
 ### File Management (Neo-tree)
 | Key | Mode | Action |
 |-----|------|--------|
