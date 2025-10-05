@@ -108,7 +108,6 @@ local function pick_theme_and_set(target)
                 actions.close(prompt_bufnr)
             end)
 
-            -- Live preview on move
             map("i", "<C-j>", function()
                 actions.move_selection_next(prompt_bufnr)
                 local selection = action_state.get_selected_entry()

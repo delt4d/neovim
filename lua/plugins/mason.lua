@@ -26,7 +26,8 @@ return {
     })
 
     mason_lspconfig.setup({
-      ensure_installed = require("shared.globals").lsp_servers
+      ensure_installed = require("shared.globals").lsp_servers,
+      automatic_installation = true,
     })
   end,
 }
