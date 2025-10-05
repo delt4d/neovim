@@ -22,6 +22,9 @@ vim.keymap.set({ 'n', 't' }, '<C-o>', terminal.Term_jump_back,
 vim.keymap.set({ 'n', 't' }, '<C-i>', terminal.Term_jump_forward,
   { noremap = true, silent = true, desc = "Go to next buffer" })
 
+vim.keymap.set('t', '<Tab>', '<Tab>',
+  { noremap = true, silent = true, desc = "Normal Tab behavior in terminal" })
+
 -- Navigation & editing
 vim.keymap.set({ "n", "v", "o" }, "<Home>", "^",
   { noremap = true, silent = true, desc = "Jump to first non-whitespace character" })
