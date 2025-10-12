@@ -76,11 +76,11 @@ return {
 
             -- Manually configure all installed servers
             for _, server_name in ipairs(mason_lspconfig.get_installed_servers()) do
-                vim.lsp.config[server_name] = vim.tbl_deep_extend(
+                vim.lsp.config(server_name, vim.tbl_deep_extend(
                     "force",
                     { capabilities = capabilities },
                     server_configs[server_name] or {}
-                )
+                ))
             end
         end,
     }
