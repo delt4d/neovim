@@ -1,6 +1,3 @@
--- User commands
-require("shared.theme")
-
 vim.api.nvim_create_user_command("Q", function()
   vim.cmd("qall")
 end, { desc = "Quit all windows (safe, stops if unsaved)" })
