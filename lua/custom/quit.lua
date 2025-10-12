@@ -9,7 +9,3 @@ end, { desc = "Force quit all windows (discard unsaved changes)" })
 vim.api.nvim_create_user_command("WQ", function()
   vim.cmd("wall | qall")
 end, { desc = "Save all buffers and quit" })
-
-vim.api.nvim_create_user_command("Wq", function()
-  vim.cmd("wall | qall")
-end, { desc = "Save all buffers and quit" })
