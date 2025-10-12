@@ -32,6 +32,8 @@ return {
             "hrsh7th/cmp-path",
             "L3MON4D3/LuaSnip",
             "saadparwaiz1/cmp_luasnip",
+            "b0o/schemastore.nvim",
+            "antosha417/nvim-lsp-file-operations",
         },
         config = function()
             local mason_lspconfig = require("mason-lspconfig")
@@ -46,7 +48,40 @@ return {
 
             mason_lspconfig.setup()
 
-            print(vim.lsp.handlers["luals"])
+            -- Custom per-server configuration
+            local server_configs = {
+                lua_ls = {
+                    settings = {
+                        Lua = {
+                            diagnostics = {
+                                globals = { "vim" },
+                            },
+                            workspace = {
+                                library = vim.api.nvim_get_runtime_file("", true),
+                                checkThirdParty = false,
+                            },
+                            telemetry = { enable = false },
+                        },
+                    },
+                },
+                jsonls = {
+                    settings = {
+                        json = {
+                            schemas = require("schemastore").json.schemas(),
+                            validate = { enable = true },
+                        },
+                    },
+                },
+            }
+
+            -- Manually configure all installed servers
+            for _, server_name in ipairs(mason_lspconfig.get_installed_servers()) do
+                vim.lsp.config[server_name] = vim.tbl_deep_extend(
+                    "force",
+                    { capabilities = capabilities },
+                    server_configs[server_name] or {}
+                )
+            end
         end,
     }
 }
