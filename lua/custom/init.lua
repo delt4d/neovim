@@ -1,2 +1,5 @@
 require("custom.quit")
-require("custom.write")
+require("custom.editing")
+require("custom.navigation")
+require("custom.terminal")
+require("custom.lsp")

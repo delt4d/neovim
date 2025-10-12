@@ -1,1 +1,0 @@
-vim.keymap.set("i", "<C-w>", "<C-w>", { noremap = true })
