@@ -4,6 +4,7 @@ local api, cmd, fn = vim.api, vim.cmd, vim.fn
 local shell = vim.o.shell
 
 local M = {}
+local terminal_count = 0
 
 function M.IsTerminaBuf(bufnr)
     bufnr = bufnr or buffers.GetCurrBuf()
@@ -23,11 +24,15 @@ end
 function M.CreateTerminal(cmdline)
     cmdline = cmdline or shell
     explorer.CloseExplorer()
+
     local term_buf = buffers.CreateBuf(false, true)
     buffers.SetCurrBuf(term_buf)
-    print(cmdline)
-    fn.termopen(cmdline)
+    fn.jobstart(cmdline, { term = true })
+    api.nvim_buf_set_name(term_buf, "Terminal " .. terminal_count + 1)
     api.nvim_command("startinsert")
+
+    terminal_count = terminal_count + 1
+
     return term_buf
 end
 
