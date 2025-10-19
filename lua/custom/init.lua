@@ -1,7 +1,7 @@
 require("custom.quit")
-require("custom.clipboard")
 require("custom.editing")
 require("custom.navigation")
 require("custom.terminal")
 require("custom.theme")
+require("custom.vscode")
 require("custom.lsp")

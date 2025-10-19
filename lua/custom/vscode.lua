@@ -15,6 +15,7 @@ if vim.g.vscode then
     end)
 
     vim.keymap.set({ 'n', 'i' }, '<C-j>', function()
+        print("oui")
         vim.fn.VSCodeNotify('workbench.action.terminal.toggleTerminal')
     end)
 end

@@ -1,5 +1,5 @@
 require("config.options")
 require("config.diagnostic")
 require("config.globals")
-require("config.vscode")
+require("config.clipboard")
 require("config.lazy")
