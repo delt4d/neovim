@@ -41,7 +41,6 @@ function M.LoadConfig()
     local f = io.open(config_file, "r")
 
     if not f then
-        print("Not fonud")
         return false
     end
 
@@ -59,7 +58,6 @@ end
 
 function M.ApplyLastTheme()
     if not vim.g.last_theme_opt then
-        print("no last theme?")
         return
     end
 
